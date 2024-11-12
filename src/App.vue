@@ -3,9 +3,7 @@
 </script>
 
 <template>
-  <div>
-    <h1>Fe-Exam</h1>
-  </div>
+  <router-view />
 </template>
 
 <style scoped></style>
