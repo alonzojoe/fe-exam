@@ -20,4 +20,16 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  const authenticated = localStorage.getItem("user");
+
+  if (to.name === "login" && authenticated) {
+    next({ name: "app-layout" });
+  } else if (to.meta.requiresAuth && !authenticated) {
+    next({ name: "login" });
+  } else {
+    next();
+  }
+});
+
 export default router;
