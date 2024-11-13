@@ -38,7 +38,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const authenticated = localStorage.getItem("user");
+  const authenticated = localStorage.getItem("fe-exam-auth-user");
 
   if (to.name === "login" && authenticated) {
     next({ name: "app-layout" });

@@ -34,7 +34,7 @@ const login = async () => {
         const user = users.find(user => user.fields.username.stringValue === formData.value.username);
 
         if (user && user.fields.password.stringValue === formData.value.password) {
-            localStorage.setItem('user', JSON.stringify(user.fields));
+            localStorage.setItem('fe-exam-auth-user', JSON.stringify(user.fields));
             console.log('Login successful:', user.fields);
             router.push({ name: 'app-layout' })
         } else {
