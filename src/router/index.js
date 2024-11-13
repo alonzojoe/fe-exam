@@ -17,28 +17,38 @@ const routes = [
         path: "",
         name: "media",
         component: () => import("../pages/Media/Media.vue"),
+        meta: { requiresType: ["Editor", "Writer"] },
       },
       {
         path: "dashboard/writer",
         name: "dashboard-writer",
         component: () => import("../pages/Dashboard/Writer.vue"),
+        meta: { requiresType: ["Writer"] },
       },
       {
         path: "dashboard/editor",
         name: "dashboard-editor",
         component: () => import("../pages/Dashboard/Editor.vue"),
+        meta: { requiresType: ["Editor"] },
       },
       {
         path: "companies",
         name: "companies",
         component: () => import("../pages/Companies/Companies.vue"),
+        meta: { requiresType: ["Editor"] },
       },
       {
         path: "users",
         name: "users",
         component: () => import("../pages/Users/Users.vue"),
+        meta: { requiresType: ["Editor"] },
       },
     ],
+  },
+  {
+    path: "/unauthorized",
+    name: "unauthorized",
+    component: () => import("../pages/Unauthorized.vue"),
   },
   {
     path: "/:pathMatch(.*)*",
@@ -54,11 +64,30 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authenticated = localStorage.getItem("fe-exam-auth-user");
+  const storedAuth = JSON.parse(authenticated);
+  const userAuth = storedAuth
+    ? {
+        id: storedAuth.id,
+        firstname: storedAuth.firstname,
+        lastname: storedAuth.lastname,
+        username: storedAuth.username,
+        type: storedAuth.type,
+        status: storedAuth.status,
+      }
+    : null;
 
-  if (to.name === "login" && authenticated) {
-    next({ name: "media" });
-  } else if (to.meta.requiresAuth && !authenticated) {
+  console.log("routes auth", userAuth);
+
+  if (to.meta.requiresAuth && !authenticated) {
     next({ name: "login" });
+  } else if (
+    to.meta.requiresType &&
+    userAuth &&
+    !to.meta.requiresType.includes(userAuth.type)
+  ) {
+    next({ name: "unauthorized" });
+  } else if (to.name === "login" && authenticated) {
+    next({ name: "media" });
   } else {
     next();
   }
