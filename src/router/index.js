@@ -8,10 +8,17 @@ const routes = [
     meta: { requiresAuth: false },
   },
   {
-    path: "/dashboard",
+    path: "/home",
     name: "app-layout",
     component: () => import("../layout/AppLayout.vue"),
     meta: { requiresAuth: true },
+    children: [
+      {
+        path: "companies",
+        name: "companies",
+        component: () => import("../pages/Companies/Companies.vue"),
+      },
+    ],
   },
   {
     path: "/:pathMatch(.*)*",
