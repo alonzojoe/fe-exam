@@ -1,14 +1,15 @@
 <template>
     <div>
         <h2>Companies</h2>
-        <button>Add New Company +</button>
+        <button @click="showForm">Add New Company +</button>
+        <CompanyForm :id="selectedCompanyId" :company="selectedCompany" v-if="isShow" @close="closeForm" />
         <table>
             <thead>
                 <tr>
                     <th>Logo</th>
                     <th>Name</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,8 +23,7 @@
                     <td><img :src="company.logo" alt="Company Logo" width="50" height="50" /></td>
                     <td>{{ company.name }}</td>
                     <td>{{ company.status }}</td>
-                    <td><button>Edit</button></td>
-                    <td><button>Delete</button></td>
+                    <td><button @click="showForm(company)">Edit</button></td>
                 </tr>
             </tbody>
         </table>
@@ -32,8 +32,9 @@
 </template>
 
 <script setup>
+import { ref, onMounted, } from 'vue';
+import CompanyForm from './CompanyForm.vue';
 
-import { ref, onMounted } from 'vue';
 import api from '../../api';
 const isLoading = ref(false)
 const companies = ref([])
@@ -41,9 +42,7 @@ const companies = ref([])
 const fetchCompanies = async () => {
     isLoading.value = true
     try {
-        const response = await api.get(
-            "https://firestore.googleapis.com/v1/projects/article-db-6e0cd/databases/(default)/documents/companies"
-        );
+        const response = await api.get("/companies");
         companies.value = await response.data.documents.map((doc) => {
             const fields = doc.fields;
             return {
@@ -59,6 +58,21 @@ const fetchCompanies = async () => {
         isLoading.value = false
     }
 }
+
+const isShow = ref(false);
+const selectedCompanyId = ref(null);
+const selectedCompany = ref({})
+const showForm = (company) => {
+    selectedCompanyId.value = company?.id;
+    selectedCompany.value = company
+    isShow.value = true;
+};
+
+const closeForm = () => {
+    isShow.value = false
+    fetchCompanies()
+}
+
 
 onMounted(async () => {
     await fetchCompanies()
