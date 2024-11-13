@@ -14,6 +14,21 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       {
+        path: "",
+        name: "media",
+        component: () => import("../pages/Media/Media.vue"),
+      },
+      {
+        path: "dashboard/writer",
+        name: "dashboard-writer",
+        component: () => import("../pages/Dashboard/Writer.vue"),
+      },
+      {
+        path: "dashboard/editor",
+        name: "dashboard-editor",
+        component: () => import("../pages/Dashboard/Editor.vue"),
+      },
+      {
         path: "companies",
         name: "companies",
         component: () => import("../pages/Companies/Companies.vue"),
