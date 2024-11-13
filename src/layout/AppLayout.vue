@@ -25,22 +25,24 @@ const logout = () => {
     router.push({ name: 'login' })
 }
 
-
-onMounted(() => {
-    const storedAuth = JSON.parse(localStorage.getItem('fe-exam-auth-user'))
+const storeAuthDetails = () => {
+    const storedAuth = JSON.parse(localStorage.getItem('fe-exam-auth-user'));
     if (storedAuth) {
-
         const userAuth = {
-            // password: storedAuth.password.stringValue,
-            firstname: storedAuth.firstname.stringValue,
-            type: storedAuth.type.stringValue,
-            status: storedAuth.status.stringValue,
-            lastname: storedAuth.lastname.stringValue,
-            username: storedAuth.username.stringValue,
+            id: storedAuth.id,
+            firstname: storedAuth.firstname,
+            lastname: storedAuth.lastname,
+            username: storedAuth.username,
+            type: storedAuth.type,
+            status: storedAuth.status
         };
 
-        store.commit('setAuthUser', userAuth)
+        store.commit('setAuthUser', userAuth);
     }
+}
+
+onMounted(() => {
+    storeAuthDetails()
 })
 
 

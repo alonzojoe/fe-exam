@@ -34,11 +34,24 @@ const login = async () => {
         const user = users.find(user => user.fields.username.stringValue === formData.value.username);
 
         if (user && user.fields.password.stringValue === formData.value.password) {
-            localStorage.setItem('fe-exam-auth-user', JSON.stringify(user.fields));
-            console.log('Login successful:', user.fields);
-            router.push({ name: 'app-layout' })
+
+            const userId = user.name.split('/').pop();
+
+            const authUser = {
+                id: userId,
+                firstname: user.fields.firstname.stringValue,
+                lastname: user.fields.lastname.stringValue,
+                username: user.fields.username.stringValue,
+                password: user.fields.password.stringValue,
+                type: user.fields.type.stringValue,
+                status: user.fields.status.stringValue
+            };
+
+            localStorage.setItem('fe-exam-auth-user', JSON.stringify(authUser));
+            console.log('Login successful:', authUser);
+            router.push({ name: 'app-layout' });
         } else {
-            alert('Invalid Username / Password')
+            alert('Invalid Username / Password');
         }
 
     } catch (error) {
