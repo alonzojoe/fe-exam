@@ -1,6 +1,7 @@
 <template>
     <Modal title="Article Form" @close-modal="closeForm">
         <form @submit.prevent="handleSubmit">
+            <FormInput label="Sample Label" id="sample" placeholder="Enter sample text" />
             <div>
                 <label for="title">Title</label>
                 <input v-model="formData.title" id="title" type="text" placeholder="Enter article title" required />
@@ -51,6 +52,7 @@
 
 <script setup>
 import Modal from '../../../components/UI/Modal.vue';
+import FormInput from '../../../components/UI/FormInput.vue';
 import { ref, computed, watch, onMounted } from 'vue';
 import api from '../../../api';
 import { useStore } from 'vuex';
