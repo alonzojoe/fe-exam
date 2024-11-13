@@ -49,7 +49,7 @@ const login = async () => {
 
             localStorage.setItem('fe-exam-auth-user', JSON.stringify(authUser));
             console.log('Login successful:', authUser);
-            router.push({ name: 'app-layout' });
+            router.push({ name: 'media' });
         } else {
             alert('Invalid Username / Password');
         }

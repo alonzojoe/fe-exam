@@ -56,7 +56,7 @@ router.beforeEach((to, from, next) => {
   const authenticated = localStorage.getItem("fe-exam-auth-user");
 
   if (to.name === "login" && authenticated) {
-    next({ name: "app-layout" });
+    next({ name: "media" });
   } else if (to.meta.requiresAuth && !authenticated) {
     next({ name: "login" });
   } else {

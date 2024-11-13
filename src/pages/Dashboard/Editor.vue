@@ -15,7 +15,6 @@
                     <th>Date</th>
                     <th>Writer</th>
                     <th>Editor</th>
-                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +32,6 @@
                     <td>{{ new Date(article.date).toLocaleDateString() }}</td>
                     <td>{{ article.writer }}</td>
                     <td>{{ article.editor }}</td>
-                    <td><button @click="showForm(article)">Edit</button></td>
                 </tr>
             </tbody>
         </table>

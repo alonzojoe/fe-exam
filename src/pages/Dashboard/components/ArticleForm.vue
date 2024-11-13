@@ -40,6 +40,10 @@
             </div>
             <div>
                 <button type="submit" :disabled="isLoading">{{ id ? 'Update Article' : 'Create Article' }}</button>
+
+            </div>
+            <div v-if="authenticatedUser.type === 'Editor' && id">
+                <button type="button" @click="handlePublish">Publish Article</button>
             </div>
         </form>
     </Modal>
@@ -114,7 +118,7 @@ const handleSubmit = async () => {
             status: { stringValue: formData.value.status },
             date: { timestampValue: moment(formData.value.date).toISOString() },
             writer: { referenceValue: `projects/article-db-6e0cd/databases/(default)/documents/users/${formData.value.writerId}` },
-            editor: { referenceValue: `projects/article-db-6e0cd/databases/(default)/documents/users/${formData.value.editorId}` },
+            editor: { referenceValue: `projects/article-db-6e0cd/databases/(default)/documents/users/${authenticatedUser.value.id}` },
             company: { referenceValue: `projects/article-db-6e0cd/databases/(default)/documents/companies/${formData.value.companyId}` },
         },
     };
@@ -123,7 +127,7 @@ const handleSubmit = async () => {
         if (props.id) {
 
             await api.patch(`/articles/${props.id}`, articleData);
-            alert("Article updated successfully");
+            formData.value.status === 'For Edit' ? alert("Article updated successfully") : alert(`Article ${formData.value.title} published successfully!`);
         } else {
 
             await api.post("/articles", articleData);
@@ -136,6 +140,20 @@ const handleSubmit = async () => {
         isLoading.value = false;
     }
 };
+
+const handlePublish = async () => {
+    const confirm = window.confirm(`Are you sure to publish this article titled: ${formData.value.title}? `)
+
+    if (!confirm) return;
+
+    formData.value.status = "Published";
+    try {
+        handleSubmit();
+
+    } catch (error) {
+        throw new Error(`Could not publish article ${error.message}`)
+    }
+}
 
 
 const closeForm = () => {
