@@ -9,10 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueup/vue-quill": "^1.0.0-beta.11",
     "axios": "^1.7.7",
     "fe-exam": "file:",
+    "moment": "^2.30.1",
+    "quill": "^2.0.2",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5",
+    "vue3-quill": "^0.3.1",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

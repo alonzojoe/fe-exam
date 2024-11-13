@@ -1,8 +1,9 @@
 <template>
     <div>
         <h1>App Layout
-            <pre>{{ authenticantedUser }}</pre>
+
         </h1>
+        <pre>{{ authenticantedUser }}</pre>
         <button @click="logout">Logout</button>
         <router-view />
     </div>
