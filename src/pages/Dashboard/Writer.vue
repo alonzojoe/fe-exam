@@ -1,75 +1,87 @@
 <template>
     <div>
-        <h2>Writers's Dashboard</h2>
+        <h2 class="heading mb-2">
+            Editor's Dashboard
+        </h2>
         <button @click="showForm">Add New Article +</button>
         <ArticleForm :id="selectedArticleID" :article="selectedArticle" v-if="isShow" @close="closeForm" />
 
-        <h3>Articles For Edit</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Link</th>
-                    <th>Date</th>
-                    <th>Writer</th>
-                    <th>Editor</th>
-                    <th>Edit</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-if="isLoading">
-                    <td colspan="8">Loading data...</td>
-                </tr>
-                <tr v-if="!isLoading && forEditArticles.length === 0">
-                    <td colspan="8">No Articles For Edit</td>
-                </tr>
-                <tr v-for="(article, index) in forEditArticles" :key="article.id">
-                    <td>{{ index + 1 }}</td>
-                    <td><img :src="article.image" alt="Article Image" width="100" /></td>
-                    <td>{{ article.title }}</td>
-                    <td><a :href="article.link" target="_blank">{{ article.link }}</a></td>
-                    <td>{{ new Date(article.date).toLocaleDateString() }}</td>
-                    <td>{{ article.writer }}</td>
-                    <td>{{ article.editor }}</td>
-                    <td><button @click="showForm(article)">Edit</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <h5 class="sub-heading">
+            List of Articles for Editing
+        </h5>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Link</th>
+                        <th>Date</th>
+                        <th>Writer</th>
+                        <th>Editor</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="isLoading">
+                        <td colspan="8">Loading data...</td>
+                    </tr>
+                    <tr v-if="!isLoading && forEditArticles.length === 0">
+                        <td colspan="8">No Articles For Edit</td>
+                    </tr>
+                    <tr v-for="(article, index) in forEditArticles" :key="article.id">
+                        <td>{{ index + 1 }}</td>
+                        <td><img :src="article.image" alt="Article Image" width="100" /></td>
+                        <td>{{ article.title }}</td>
+                        <td><a :href="article.link" target="_blank">{{ article.link }}</a></td>
+                        <td>{{ new Date(article.date).toLocaleDateString() }}</td>
+                        <td>{{ article.writer }}</td>
+                        <td>{{ article.editor }}</td>
+                        <td><button @click="showForm(article)">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <h3>Published Articles</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Link</th>
-                    <th>Date</th>
-                    <th>Writer</th>
-                    <th>Editor</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-if="isLoading">
-                    <td colspan="7">Loading data...</td>
-                </tr>
-                <tr v-if="!isLoading && publishedArticles.length === 0">
-                    <td colspan="7">No Published Articles</td>
-                </tr>
-                <tr v-for="(article, index) in publishedArticles" :key="article.id">
-                    <td>{{ index + 1 }}</td>
-                    <td><img :src="article.image" alt="Article Image" width="100" /></td>
-                    <td>{{ article.title }}</td>
-                    <td><a :href="article.link" target="_blank">{{ article.link }}</a></td>
-                    <td>{{ new Date(article.date).toLocaleDateString() }}</td>
-                    <td>{{ article.writer }}</td>
-                    <td>{{ article.editor }}</td>
-                    <td><button @click="showForm(article)">Edit</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="separator"></div>
+
+        <h5 class="sub-heading">
+            List of Published Articles
+        </h5>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Link</th>
+                        <th>Date</th>
+                        <th>Writer</th>
+                        <th>Editor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="isLoading">
+                        <td colspan="7">Loading data...</td>
+                    </tr>
+                    <tr v-if="!isLoading && publishedArticles.length === 0">
+                        <td colspan="7">No Published Articles</td>
+                    </tr>
+                    <tr v-for="(article, index) in publishedArticles" :key="article.id">
+                        <td>{{ index + 1 }}</td>
+                        <td><img :src="article.image" alt="Article Image" width="100" /></td>
+                        <td>{{ article.title }}</td>
+                        <td><a :href="article.link" target="_blank">{{ article.link }}</a></td>
+                        <td>{{ new Date(article.date).toLocaleDateString() }}</td>
+                        <td>{{ article.writer }}</td>
+                        <td>{{ article.editor }}</td>
+                        <td><button @click="showForm(article)">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -149,4 +161,14 @@ onMounted(async () => {
 
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+.separator {
+    width: 100%;
+    border: 0.5px solid #ccc;
+    margin: 2rem 0;
+}
+</style>

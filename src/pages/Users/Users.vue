@@ -1,35 +1,44 @@
 <template>
-    <div>
-        <h2>Users Page</h2>
+    <section>
+        <h2 class="heading">
+            Users Management
+        </h2>
+        <h5 class="sub-heading">
+            Manage the List of Users
+        </h5>
         <button @click="showForm">Add New User +</button>
         <UsersForm :id="selectedUserID" :user="selectedUser" v-if="isShow" @close="closeForm" />
-        <table>
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th>Edit</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-if="isLoading">
-                    <td colspan="5">Loading data...</td>
-                </tr>
-                <tr v-if="!isLoading && users.length === 0">
-                    <td colspan="5">No Records found</td>
-                </tr>
-                <tr v-for="user in users" :key="user.id">
-                    <td>{{ user.firstname }}</td>
-                    <td>{{ user.lastname }}</td>
-                    <td>{{ user.type }}</td>
-                    <td>{{ user.status }}</td>
-                    <td><button @click="showForm(user)">Edit</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="isLoading">
+                        <td colspan="6">Loading data...</td>
+                    </tr>
+                    <tr v-if="!isLoading && users.length === 0">
+                        <td colspan="6">No Records found</td>
+                    </tr>
+                    <tr v-for="(user, index) in users" :key="user.id">
+                        <td>{{ index + 1 }}</td>
+                        <td>{{ user.firstname }}</td>
+                        <td>{{ user.lastname }}</td>
+                        <td>{{ user.type }}</td>
+                        <td>{{ user.status }}</td>
+                        <td><button @click="showForm(user)">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 </template>
 
 <script setup>

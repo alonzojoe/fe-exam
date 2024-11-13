@@ -1,47 +1,55 @@
 <template>
-    <div>
-        <h2>All Medias</h2>
+    <section>
+        <h2 class="heading">
+            All Media
+        </h2>
+        <h5 class="sub-heading">
+            List of all articles
+        </h5>
 
         <ArticleForm :id="selectedArticleID" :article="selectedArticle" v-if="isShow" @close="closeForm" />
 
-        <table>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Link</th>
-                    <th>Date</th>
-                    <th>Writer</th>
-                    <th>Editor</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-if="isLoading">
-                    <td colspan="9">Loading data...</td>
-                </tr>
-                <tr v-if="!isLoading && allArticles.length === 0">
-                    <td colspan="9">No Articles For Edit</td>
-                </tr>
-                <tr v-for="(article, index) in allArticles" :key="article.id">
-                    <td>{{ index + 1 }}</td>
-                    <td><img :src="article.image" alt="Article Image" width="100" /></td>
-                    <td>{{ article.title }}</td>
-                    <td><a :href="article.link" target="_blank">{{ article.link }}</a></td>
-                    <td>{{ new Date(article.date).toLocaleDateString() }}</td>
-                    <td>{{ article.writer }}</td>
-                    <td>{{ article.editor }}</td>
-                    <td>{{ article.status }}</td>
-                    <td>
-                        <button @click="showForm(article)" v-if="article.status === 'For Edit'">Edit</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Link</th>
+                        <th>Date</th>
+                        <th>Writer</th>
+                        <th>Editor</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="isLoading">
+                        <td colspan="9">Loading data...</td>
+                    </tr>
+                    <tr v-if="!isLoading && allArticles.length === 0">
+                        <td colspan="9">No Articles For Edit</td>
+                    </tr>
+                    <tr v-for="(article, index) in allArticles" :key="article.id">
+                        <td>{{ index + 1 }}</td>
+                        <td><img :src="article.image" alt="Article Image" width="100" /></td>
+                        <td>{{ article.title }}</td>
+                        <td><a :href="article.link" target="_blank">{{ article.link }}</a></td>
+                        <td>{{ new Date(article.date).toLocaleDateString() }}</td>
+                        <td>{{ article.writer }}</td>
+                        <td>{{ article.editor }}</td>
+                        <td>{{ article.status }}</td>
+                        <td>
+                            <button @click="showForm(article)" v-if="article.status === 'For Edit'">Edit</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    </div>
+
+    </section>
 </template>
 
 <script setup>
@@ -120,4 +128,4 @@ onMounted(async () => {
 
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

@@ -1,34 +1,44 @@
 <template>
-    <div>
-        <h2>Companies</h2>
+    <section>
+        <h2 class="heading">
+            Companies
+        </h2>
+        <h5 class="sub-heading">
+            Manage the List of Companies
+        </h5>
+        <div class="table-responsive">
+        </div>
         <button @click="showForm">Add New Company +</button>
         <CompanyForm :id="selectedCompanyId" :company="selectedCompany" v-if="isShow" @close="closeForm" />
-        <table>
-            <thead>
-                <tr>
-                    <th>Logo</th>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th>Edit</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-if="isLoading">
-                    <td colspan="4">Loading data...</td>
-                </tr>
-                <tr v-if="!isLoading && companies.length === 0">
-                    <td colspan="4">No Records found</td>
-                </tr>
-                <tr v-for="company in companies" :key="company.id">
-                    <td><img :src="company.logo" alt="Company Logo" width="50" height="50" /></td>
-                    <td>{{ company.name }}</td>
-                    <td>{{ company.status }}</td>
-                    <td><button @click="showForm(company)">Edit</button></td>
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Logo</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="isLoading">
+                        <td colspan="5">Loading data...</td>
+                    </tr>
+                    <tr v-if="!isLoading && companies.length === 0">
+                        <td colspan="5">No Records found</td>
+                    </tr>
+                    <tr v-for="(company, index) in companies" :key="company.id">
+                        <td>{{ index + 1 }}</td>
+                        <td><img :src="company.logo" alt="Company Logo" width="50" height="50" /></td>
+                        <td>{{ company.name }}</td>
+                        <td>{{ company.status }}</td>
+                        <td><button @click="showForm(company)">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 </template>
 
 <script setup>

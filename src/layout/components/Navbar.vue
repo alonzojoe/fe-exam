@@ -5,7 +5,7 @@
         </router-link>
         <div class="nav-links" :class="showMenu">
             <router-link class="nav-item" :class="{ active: $route.name === p.name }" :to="{ name: p.name }"
-                v-for="p in pages" :key="p.id">{{ p.title
+                @click="removeActive" v-for="p in pages" :key="p.id">{{ p.title
                 }}</router-link>
             <a href="#" class="nav-item-excluded">{{ fullName }}</a>
             <a href="#" class="nav-item-excluded" @click="logout">Logout</a>
@@ -68,6 +68,10 @@ const showMenu = computed(() => {
     return isToggle.value ? "active" : "";
 });
 
+const removeActive = () => {
+    isToggle.value = false;
+}
+
 </script>
 
 <style scoped>
@@ -100,16 +104,16 @@ header .nav-links {
 header .nav-links .nav-item {
     font-size: 1.7rem;
     border-radius: 0.5rem;
-    padding: 0.3rem 1rem;
+    padding: 0.5rem 1rem;
     margin: 0 0.2rem;
-    color: #989898;
+    color: var(--text-light);
 }
 
 header .nav-links .nav-item.active,
 header .nav-links .nav-item:active,
 header .nav-links .nav-item:hover {
     color: #fff;
-    background: #000;
+    background: var(--text-dark);
     border-radius: 5px;
 }
 
@@ -118,7 +122,7 @@ header .nav-links .nav-item {
     border-radius: 0.5rem;
     padding: 0.3rem 1rem;
     margin: 0 0.2rem;
-    color: #989898;
+    color: var(--text-light);
 }
 
 header .nav-links .nav-item-excluded {
@@ -126,13 +130,13 @@ header .nav-links .nav-item-excluded {
     border-radius: 0.5rem;
     padding: 0.3rem 1rem;
     margin: 0 0.2rem;
-    color: #989898;
+    color: var(--text-light);
 }
 
 header .nav-links .nav-item-excluded.active,
 header .nav-links .nav-item-excluded:active,
 header .nav-links .nav-item-excluded:hover {
-    color: #000;
+    color: var(--text-dark);
 
 }
 
@@ -144,7 +148,7 @@ header .controls {
 }
 
 header .controls #menu {
-    color: #989898;
+    color: var(--text-light);
     border: 1px solid #e2e8f0;
     border-radius: 6px;
     padding: 7px;
@@ -235,7 +239,7 @@ header .controls #menu:hover {
     header .nav-links .nav-item.active,
     header .nav-links .nav-item:active,
     header .nav-links .nav-item:hover {
-        color: #000;
+        color: var(--text-dark);
         background: transparent;
         border-radius: 5px;
     }
