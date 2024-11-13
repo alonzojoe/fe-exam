@@ -1,11 +1,9 @@
 <template>
     <div>
-        <h1>App Layout
-
-        </h1>
-        <pre>{{ authenticantedUser }}</pre>
-        <button @click="logout">Logout</button>
-        <router-view />
+        <Navbar :authUser="authenticantedUser" @log-out="logout" />
+        <main class="container">
+            <router-view />
+        </main>
     </div>
 </template>
 
@@ -13,6 +11,7 @@
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import Navbar from './components/Navbar.vue';
 
 const store = useStore()
 const router = useRouter()
@@ -49,4 +48,27 @@ onMounted(() => {
 
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.container {
+    padding: 100px 9%;
+    margin-top: 0;
+}
+
+@media screen and (max-width: 991px) {
+    .container {
+        padding: 100px 2rem;
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .container {
+        padding: 100px 4%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        padding: 100px 2%;
+    }
+}
+</style>

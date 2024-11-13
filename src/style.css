@@ -11,3 +11,9 @@
   outline: none;
   transition: all 0.2s linear;
 }
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
