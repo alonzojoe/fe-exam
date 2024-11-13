@@ -31,15 +31,16 @@ const props = defineProps({ id: String, company: Object });
 const emit = defineEmits(['close']);
 
 
-const formData = ref({
-    name: '',
-    logo: '',
-    status: 'Active',
-});
+const formData = ref();
 
 const isLoading = ref(false);
 
 const closeForm = () => {
+    formData.value = {
+        name: '',
+        logo: '',
+        status: 'Active',
+    }
     emit('close');
 };
 

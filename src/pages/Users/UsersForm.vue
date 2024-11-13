@@ -59,6 +59,14 @@ const formData = ref({
 const isLoading = ref(false);
 
 const closeForm = () => {
+    formData = {
+        firstname: '',
+        lastname: '',
+        type: 'Writer',
+        status: 'Active',
+        username: '',
+        password: '',
+    }
     emit('close');
 };
 
