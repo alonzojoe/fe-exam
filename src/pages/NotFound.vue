@@ -1,8 +1,8 @@
 <template>
     <div class="fluid">
         <h2>404</h2>
-        <h3>Page not found.</h3>
-        <Button mode="cancel" @click="$router.go(-1)">Go Back</Button>
+        <h3>The page you were looking for doesn't exist.</h3>
+        <Button mode="cancel" @click="$router.push('/home')">Go Back</Button>
     </div>
 </template>
 

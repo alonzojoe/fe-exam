@@ -2,7 +2,7 @@
     <div class="fluid">
         <h2>401</h2>
         <h3>You are not authorized to access this page.</h3>
-        <Button mode="cancel" @click="$router.go(-1)">Go Back</Button>
+        <Button mode="cancel" @click="$router.push('/home')">Go Back</Button>
     </div>
 </template>
 
