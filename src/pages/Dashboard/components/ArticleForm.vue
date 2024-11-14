@@ -11,7 +11,8 @@
             <div class="btn-container">
                 <Button type="submit" :disabled="isLoading">{{ id ? 'Update Article' : 'Create Article' }}</Button>
                 <Button type="button" mode="publish" @click="handlePublish" :disabled="isLoading"
-                    v-if="authenticatedUser.type === 'Editor' && id">Publish Article</Button>
+                    v-if="(authenticatedUser.type === 'Editor' && id) && article.status !== 'Published'">Publish
+                    Article</Button>
             </div>
         </form>
     </Modal>
@@ -187,6 +188,4 @@ watch(() => props.article, (newArticle) => {
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,6 +1,5 @@
 <template>
     <Modal title="User Form" @close-modal="closeForm">
-        <pre>{{ formData }}</pre>
         <form @submit.prevent="handleSubmit">
             <FormInput v-model="formData.firstname" label="First Name" id="u-name" type="text" placeholder="" />
             <FormInput v-model="formData.lastname" label="Last Name" id="u-lname" type="text" placeholder="" />
