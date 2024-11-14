@@ -1,14 +1,18 @@
 <template>
     <section>
-        <h2 class="heading">
-            Companies
-        </h2>
-        <h5 class="sub-heading">
+        <div class="header-container">
+            <h2 class="heading">
+                Companies
+            </h2>
+            <Button @click="showForm">Add New Company +</Button>
+        </div>
+
+        <h5 class="sub-heading  mt-2">
             Manage the List of Companies
         </h5>
         <div class="table-responsive">
         </div>
-        <button @click="showForm">Add New Company +</button>
+
         <CompanyForm :id="selectedCompanyId" :company="selectedCompany" v-if="isShow" @close="closeForm" />
         <div class="table-responsive">
             <table>
@@ -33,7 +37,7 @@
                         <td><img :src="company.logo" alt="Company Logo" width="50" height="50" /></td>
                         <td>{{ company.name }}</td>
                         <td>{{ company.status }}</td>
-                        <td><button @click="showForm(company)">Edit</button></td>
+                        <td><Button @click="showForm(company)">Edit</Button></td>
                     </tr>
                 </tbody>
             </table>
@@ -44,6 +48,7 @@
 <script setup>
 import { ref, onMounted, } from 'vue';
 import CompanyForm from './CompanyForm.vue';
+import Button from '../../components/UI/Button.vue';
 
 import api from '../../api';
 const isLoading = ref(false)

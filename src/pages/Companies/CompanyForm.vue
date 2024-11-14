@@ -1,37 +1,33 @@
 <template>
     <Modal title="Company Form" @close-modal="closeForm">
         <form @submit.prevent="handleSubmit">
-            <div>
-                <label for="name">Company Name</label>
-                <input type="text" id="name" v-model="formData.name" required />
+            <FormInput v-model="formData.name" label="Name" id="c-name" type="text" placeholder="" />
+            <FormInput v-model="formData.logo" label="Logo URL" id="c-logo" type="link" placeholder="" />
+            <FormSelect v-model="formData.status" label="Status" id="c-status" :options="statusOptions" />
+            <div class="btn-container">
+                <Button type="submit" :disabled="isLoading">{{ id ? 'Update Company' : 'Add Company' }}</Button>
             </div>
-            <div>
-                <label for="logo">Logo URL</label>
-                <input type="text" id="logo" v-model="formData.logo" required />
-            </div>
-            <div>
-                <label for="status">Status</label>
-                <select id="status" v-model="formData.status" required>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                </select>
-            </div>
-            <button type="submit" :disabled="isLoading">{{ id ? 'Update Company' : 'Add Company' }}</button>
         </form>
-        <pre>{{ company }}</pre>
     </Modal>
 </template>
 
 <script setup>
-import Modal from '../../components/UI/Modal.vue';
 import { ref, watch } from 'vue';
+import Modal from '../../components/UI/Modal.vue';
+import Button from '../../components/UI/Button.vue';
+import FormInput from '../../components/UI/FormInput.vue';
+import FormSelect from '../../components/UI/FormSelect.vue';
 import api from '../../api';
 
 const props = defineProps({ id: String, company: Object });
 const emit = defineEmits(['close']);
 
 
-const formData = ref();
+const formData = ref({
+    name: '',
+    logo: '',
+    status: 'Active',
+});
 
 const isLoading = ref(false);
 
@@ -44,6 +40,16 @@ const closeForm = () => {
     emit('close');
 };
 
+const statusOptions = ref([
+    {
+        id: 'Active',
+        text: 'Active',
+    },
+    {
+        id: 'Inactive',
+        text: 'Inactive',
+    },
+])
 
 const handleSubmit = async () => {
     isLoading.value = true
@@ -73,7 +79,7 @@ const handleSubmit = async () => {
 watch(
     () => props.company,
     (newCompany) => {
-        if (newCompany) {
+        if (typeof newCompany === 'object' && props.id) {
             formData.value = { ...newCompany };
         }
     },
