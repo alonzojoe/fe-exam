@@ -77,11 +77,6 @@ Here are a few sample users to demonstrate different user types in the system:
 - **Username**: janedoe
 - **Password**: 1234
 
-### User Type: Admin
-
-- **Username**: adminuser
-- **Password**: adminpassword
-
 These users can be used for testing purposes to interact with the backend API or to log in to the system, depending on your app's authentication system.
 
 ## Repos in Development Mode
