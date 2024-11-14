@@ -39,9 +39,11 @@
                         <td>{{ new Date(article.date).toLocaleDateString() }}</td>
                         <td>{{ article.writer }}</td>
                         <td>{{ article.editor }}</td>
-                        <td>{{ article.status }}</td>
                         <td>
-                            <button @click="showForm(article)" v-if="article.status === 'For Edit'">Edit</button>
+                            <Badge :type="article.status">{{ article.status }}</Badge>
+                        </td>
+                        <td>
+                            <Button @click="showForm(article)" v-if="article.status === 'For Edit'">Edit</Button>
                         </td>
                     </tr>
                 </tbody>
@@ -53,8 +55,10 @@
 </template>
 
 <script setup>
-import ArticleForm from '../Dashboard/components/ArticleForm.vue';
 import { ref, onMounted } from 'vue';
+import ArticleForm from '../Dashboard/components/ArticleForm.vue';
+import Badge from '../../components/UI/Badge.vue'
+import Button from '../../components/UI/Button.vue';
 import api from '../../api';
 
 
