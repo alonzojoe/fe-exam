@@ -86,6 +86,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #ffff;
 }
 
 footer span {
