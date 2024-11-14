@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vueup/vue-quill": "^1.0.0-beta.11",
+    "@vueup/vue-quill": "^1.2.0",
     "axios": "^1.7.7",
     "fe-exam": "file:",
     "moment": "^2.30.1",

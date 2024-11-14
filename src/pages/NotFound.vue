@@ -1,16 +1,14 @@
 <template>
     <div class="fluid">
-        <h2>404 Page Not Found</h2>
-        <button @click="$router.go(-1)">Go Back</button>
+        <h2>404</h2>
+        <h3>Page not found.</h3>
+        <Button mode="cancel" @click="$router.go(-1)">Go Back</Button>
     </div>
 </template>
 
 <script setup>
-
-
-
+import Button from '../components/UI/Button.vue';
 </script>
-
 
 <style scoped>
 .fluid {
@@ -24,7 +22,13 @@
 }
 
 h2 {
-    font-size: 4rem;
+    font-size: 5rem;
     color: var(--text-lighter);
+}
+
+h3 {
+    font-size: 3rem;
+    color: var(--text-lighter);
+    margin-bottom: 2rem;
 }
 </style>

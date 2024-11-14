@@ -67,3 +67,9 @@ table th {
   color: #333;
   /* text-transform: uppercase; */
 }
+
+.table-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

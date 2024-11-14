@@ -1,8 +1,13 @@
 <template>
     <div class="form-input">
         <label :for="id">{{ label }}</label>
-        <input :id="id" :placeholder="placeholder" :type="type" :value="modelValue"
-            @input="$emit('update:modelValue', $event.target.value)" required />
+        <select :id="id" :value="modelValue" @change="$emit('update:modelValue', $event.target.value)" required>
+            <option value="">{{ placeholder }}</option>
+            <option v-for="option in options" :key="option.id" :value="option.id" :disabled="option.hidden">
+                {{ option.text }}
+
+            </option>
+        </select>
     </div>
 </template>
 
@@ -11,12 +16,19 @@ const props = defineProps({
     modelValue: String,
     label: String,
     id: String,
-    placeholder: String,
-    type: String
-})
+    placeholder: {
+        type: String,
+        default: "Please select",
+    },
+    options: {
+        type: Array,
+        required: true,
+        default: () => [],
+    },
+});
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 .form-input {
     margin: 0.5rem;
     margin-bottom: 1.5rem;
@@ -32,7 +44,7 @@ label {
     margin-bottom: 0.7rem;
 }
 
-input {
+select {
     padding: 0.9rem 0.7rem;
     width: 100%;
     border: 1px solid #ccc;
@@ -42,7 +54,7 @@ input {
     font-weight: 500;
 }
 
-input:focus {
+select:focus {
     border-color: #464b50;
 }
 </style>

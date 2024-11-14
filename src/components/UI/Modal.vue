@@ -57,8 +57,8 @@ const emit = defineEmits(['close-modal'])
     color: #fff;
     font-size: 2rem;
     z-index: 5;
-    top: 5px;
-    right: 10px;
+    top: 10px;
+    right: 12px;
     height: 30px;
     width: 30px;
     text-align: center;
@@ -84,7 +84,7 @@ const emit = defineEmits(['close-modal'])
 }
 
 .modal-content {
-    max-height: 60vh;
+    max-height: 80vh;
     overflow-y: auto;
     padding: 10px 15px;
     margin-bottom: 2rem;
@@ -92,7 +92,7 @@ const emit = defineEmits(['close-modal'])
 
 @media screen and (max-width: 768px) {
     .modal-container {
-        width: 90vh;
+        width: 85vh;
     }
 }
 

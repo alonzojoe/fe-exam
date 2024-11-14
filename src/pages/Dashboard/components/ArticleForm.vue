@@ -1,50 +1,17 @@
 <template>
     <Modal title="Article Form" @close-modal="closeForm">
+        <!-- <pre>{{ formData }}</pre> -->
         <form @submit.prevent="handleSubmit">
-            <FormInput label="Sample Label" id="sample" placeholder="Enter sample text" />
-            <div>
-                <label for="title">Title</label>
-                <input v-model="formData.title" id="title" type="text" placeholder="Enter article title" required />
-            </div>
-
-            <div>
-                <label for="content">Content</label>
-                <textarea v-model="formData.content" />
-            </div>
-
-
-            <div>
-                <label for="link">Link</label>
-                <input v-model="formData.link" id="link" type="url" placeholder="Enter article link" />
-            </div>
-
-            <div>
-                <label for="image">Image URL</label>
-                <input v-model="formData.image" id="image" type="url" placeholder="Enter image URL" />
-            </div>
-
-            <div>
-                <label for="company">Company</label>
-                <select v-model="formData.companyId" id="company" required>
-                    <option value="" disabled>Select a company</option>
-                    <option v-for="company in companies" :key="company.id" :value="company.id">
-                        {{ company.name }}
-                    </option>
-                </select>
-            </div>
-            <div>
-                <label for="status">Status</label>
-                <select v-model="formData.status">
-                    <option value="For Edit">For Edit</option>
-                    <option value="Published" v-if="authenticatedUser.type !== 'Writer'">Published</option>
-                </select>
-            </div>
-            <div>
-                <button type="submit" :disabled="isLoading">{{ id ? 'Update Article' : 'Create Article' }}</button>
-
-            </div>
-            <div v-if="authenticatedUser.type === 'Editor' && id">
-                <button type="button" @click="handlePublish">Publish Article</button>
+            <FormInput v-model="formData.title" label="Title" id="title" type="text" placeholder="" />
+            <FormTextEditor v-model="formData.content" label="Content" id="content" />
+            <FormInput v-model="formData.link" label="Link" id="link" type="link" placeholder="" />
+            <FormInput v-model="formData.image" label="Image" id="image" type="link" placeholder="" />
+            <FormSelect v-model="formData.companyId" label="Company" id="company" :options="companyOptions" />
+            <FormSelect v-model="formData.status" label="Status" id="company" :options="statusOptions" />
+            <div class="btn-container">
+                <Button type="submit" :disabled="isLoading">{{ id ? 'Update Article' : 'Create Article' }}</Button>
+                <Button type="button" mode="publish" @click="handlePublish" :disabled="isLoading"
+                    v-if="authenticatedUser.type === 'Editor' && id">Publish Article</Button>
             </div>
         </form>
     </Modal>
@@ -53,11 +20,13 @@
 <script setup>
 import Modal from '../../../components/UI/Modal.vue';
 import FormInput from '../../../components/UI/FormInput.vue';
+import FormTextEditor from '../../../components/UI/FormTextEditor.vue';
+import FormSelect from '../../../components/UI/FormSelect.vue';
+import Button from '../../../components/UI/Button.vue';
 import { ref, computed, watch, onMounted } from 'vue';
 import api from '../../../api';
 import { useStore } from 'vuex';
 import moment from 'moment';
-import { QuillEditor } from "@vueup/vue-quill"
 
 const props = defineProps({
     id: String,
@@ -83,6 +52,27 @@ const formData = ref({
 
 const companies = ref([]);
 const isLoading = ref(false);
+
+const companyOptions = computed(() =>
+    companies.value.map(c => ({
+        id: c.id,
+        text: c.name,
+        hidden: false
+    }))
+)
+
+const statusOptions = ref([
+    {
+        id: 'For Edit',
+        text: 'For Edit',
+        hidden: false,
+    },
+    {
+        id: 'Published',
+        text: 'Published',
+        hidden: authenticatedUser.value.type === 'Writer' ? true : false
+    }
+])
 
 const fetchCompanies = async () => {
     try {
@@ -110,6 +100,11 @@ onMounted(async () => {
 
 
 const handleSubmit = async () => {
+    if (formData.value.content.trim() === '') {
+        alert('Content is required!')
+        return;
+    }
+
     isLoading.value = true;
     const articleData = {
         fields: {
@@ -176,7 +171,7 @@ const closeForm = () => {
 
 watch(() => props.article, (newArticle) => {
     if (newArticle) {
-        if (typeof newArticle === 'object') {
+        if (typeof newArticle === 'object' && props.id) {
             console.log('newARticle', newArticle)
             formData.value = {
                 ...newArticle,
@@ -191,3 +186,14 @@ watch(() => props.article, (newArticle) => {
 }, { immediate: true });
 
 </script>
+
+<style scoped>
+.btn-container {
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 1rem;
+
+}
+</style>

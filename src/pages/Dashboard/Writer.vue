@@ -32,7 +32,7 @@
                     </tr>
                     <tr v-for="(article, index) in forEditArticles" :key="article.id">
                         <td>{{ index + 1 }}</td>
-                        <td><img :src="article.image" alt="Article Image" width="100" /></td>
+                        <td><img :src="article.image" alt="Article Image" class="table-image" /></td>
                         <td>{{ article.title }}</td>
                         <td><a :href="article.link" target="_blank">{{ article.link }}</a></td>
                         <td>{{ new Date(article.date).toLocaleDateString() }}</td>
