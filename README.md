@@ -90,6 +90,10 @@ Frontend: [Front End Repo Link](https://github.com/alonzojoe/fe-exam.git)
 
 Backend: [Backend Server (Firebase) API Endpoint](<https://firestore.googleapis.com/v1/projects/article-db-6e0cd/databases/(default)/documents/articles>)
 
+## Live Link in Production Mode
+
+Live Link: [https://fe-exam-articles.netlify.app/](https://fe-exam-articles.netlify.app/)
+
 ## Backend: API Endpoints
 
 The API is hosted on Firebase Firestore, and the following endpoints are available for interacting with the database:
