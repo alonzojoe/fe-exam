@@ -8,8 +8,8 @@ This is a Vue.js-based Writer/Editor Dashboard application that allows users to 
 
 - **Create Articles**: Writers can create new articles. When a new article is created, it is marked as "For Edit" by default.
 - **Edit Articles**: Writers can edit articles that are still in "For Edit" status.
-- **Dashboard**: The Writer's Dashboard displays a list of articles that are either in "For Edit" or "Published" status, with article details like Image, Title, Link, Date, Writer Name, and Editor Name.
-- **Media Management**: Writers can view all articles, including unpublished ones, with options to edit only the articles that are still "For Edit."
+- **Dashboard**: The Writer's Dashboard displays a list of articles that are either in "For Edit" or "Published" status, with article details like Image, Title, Link, Writer Name, and Editor Name.
+- **All Media**: Writers can view all articles, including unpublished ones, with options to edit only the articles that are still "For Edit."
 
 ### Editor Features
 
@@ -76,8 +76,6 @@ Here are a few sample users to demonstrate different user types in the system:
 
 - **Username**: janedoe
 - **Password**: 1234
-
-These users can be used for testing purposes to interact with the backend API or to log in to the system, depending on your app's authentication system.
 
 ## Repos in Development Mode
 

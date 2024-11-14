@@ -10,9 +10,10 @@
             <FormSelect v-model="formData.status" label="Status" id="company" :options="statusOptions" />
             <div class="btn-container">
                 <Button type="submit" :disabled="isLoading">{{ id ? 'Update Article' : 'Create Article' }}</Button>
-                <Button type="button" mode="publish" @click="handlePublish" :disabled="isLoading"
-                    v-if="(authenticatedUser.type === 'Editor' && id) && article.status !== 'Published'">Publish
-                    Article</Button>
+                <Button type="button" mode="publish" :disabled="isLoading" @click="handlePublish"
+                    v-if="(authenticatedUser.type === 'Editor' && id) && article.status !== 'Published'">
+                    Publish Article
+                </Button>
             </div>
         </form>
     </Modal>
@@ -140,16 +141,15 @@ const handleSubmit = async () => {
 };
 
 const handlePublish = async () => {
-    const confirm = window.confirm(`Are you sure to publish this article titled: ${formData.value.title}? `)
-
-    if (!confirm) return;
+    const confirmation = confirm(`Are you sure to publish this article titled: ${formData.value.title}?`);
+    console.log(confirmation)
+    if (!confirmation) return false;
 
     formData.value.status = "Published";
     try {
-        handleSubmit();
-
+        await handleSubmit();
     } catch (error) {
-        throw new Error(`Could not publish article ${error.message}`)
+        console.error(`Could not publish article: ${error.message}`);
     }
 }
 
