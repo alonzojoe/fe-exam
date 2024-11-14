@@ -38,7 +38,7 @@
                         <td>{{ new Date(article.date).toLocaleDateString() }}</td>
                         <td>{{ article.writer }}</td>
                         <td>{{ article.editor }}</td>
-                        <td><button @click="showForm(article)">Edit</button></td>
+                        <td><Button @click="showForm(article)">Edit</Button></td>
                     </tr>
                 </tbody>
             </table>
@@ -60,14 +60,15 @@
                         <th>Date</th>
                         <th>Writer</th>
                         <th>Editor</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-if="isLoading">
-                        <td colspan="7">Loading data...</td>
+                        <td colspan="8">Loading data...</td>
                     </tr>
                     <tr v-if="!isLoading && publishedArticles.length === 0">
-                        <td colspan="7">No Published Articles</td>
+                        <td colspan="8">No Published Articles</td>
                     </tr>
                     <tr v-for="(article, index) in publishedArticles" :key="article.id">
                         <td>{{ index + 1 }}</td>
@@ -77,6 +78,7 @@
                         <td>{{ new Date(article.date).toLocaleDateString() }}</td>
                         <td>{{ article.writer }}</td>
                         <td>{{ article.editor }}</td>
+                        <td><Button @click="showForm(article)">Edit</Button></td>
                     </tr>
                 </tbody>
             </table>
@@ -85,8 +87,9 @@
 </template>
 
 <script setup>
-import ArticleForm from './components/ArticleForm.vue';
 import { ref, onMounted } from 'vue';
+import ArticleForm from './components/ArticleForm.vue';
+import Button from '../../components/UI/Button.vue';
 import api from '../../api';
 
 
@@ -144,7 +147,7 @@ const selectedArticleID = ref(null);
 const selectedArticle = ref({});
 
 const showForm = (article) => {
-    selectedArticleID.value = article.id;
+    selectedArticleID.value = article?.id;
     selectedArticle.value = article;
     isShow.value = true;
 };
