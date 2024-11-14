@@ -116,7 +116,7 @@ const handleSubmit = async () => {
             status: { stringValue: formData.value.status },
             date: { timestampValue: moment(formData.value.date).toISOString() },
             writer: { referenceValue: `projects/article-db-6e0cd/databases/(default)/documents/users/${formData.value.writerId}` },
-            editor: { referenceValue: `projects/article-db-6e0cd/databases/(default)/documents/users/${authenticatedUser.value.id}` },
+            editor: props.id ? { referenceValue: `projects/article-db-6e0cd/databases/(default)/documents/users/${authenticatedUser.value.id}` } : { stringValue: '' },
             company: { referenceValue: `projects/article-db-6e0cd/databases/(default)/documents/companies/${formData.value.companyId}` },
         },
     };

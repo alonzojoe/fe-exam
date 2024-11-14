@@ -85,6 +85,7 @@ header {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    background: #FFFFFF;
     z-index: 999;
 }
 
