@@ -1,46 +1,30 @@
 <template>
     <Modal title="User Form" @close-modal="closeForm">
+        <pre>{{ formData }}</pre>
         <form @submit.prevent="handleSubmit">
-            <div>
-                <label for="firstname">First Name</label>
-                <input type="text" id="firstname" v-model="formData.firstname" required />
+            <FormInput v-model="formData.firstname" label="First Name" id="u-name" type="text" placeholder="" />
+            <FormInput v-model="formData.lastname" label="Last Name" id="u-lname" type="text" placeholder="" />
+            <FormSelect v-model="formData.type" label="User Type" id="u-type" :options="typeOptions" />
+            <FormSelect v-model="formData.status" label="Status" id="u-status" :options="statusOptions" />
+            <FormInput v-model="formData.username" label="Username" id="u-username" type="text" placeholder="" />
+            <FormInput v-model="formData.password" label="Password" id="u-password" type="password" placeholder="" />
+            <div class="btn-container">
+                <Button type="submit" :disabled="isLoading">{{ props.id ? 'Update User' : 'Add User' }}</Button>
             </div>
-            <div>
-                <label for="lastname">Last Name</label>
-                <input type="text" id="lastname" v-model="formData.lastname" required />
-            </div>
-            <div>
-                <label for="type">User Type</label>
-                <select id="type" v-model="formData.type" required>
-                    <option value="Writer">Writer</option>
-                    <option value="Editor">Editor</option>
-                </select>
-            </div>
-            <div>
-                <label for="status">Status</label>
-                <select id="status" v-model="formData.status" required>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                </select>
-            </div>
-            <div>
-                <label for="username">Username</label>
-                <input type="text" id="username" v-model="formData.username" required />
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" id="password" v-model="formData.password" required />
-            </div>
-            <button type="submit" :disabled="isLoading">{{ props.id ? 'Update User' : 'Add User' }}</button>
+
         </form>
-        <pre>{{ user }}</pre>
+
     </Modal>
 </template>
 
 <script setup>
-import Modal from '../../components/UI/Modal.vue';
 import { ref, watch } from 'vue';
+import Modal from '../../components/UI/Modal.vue';
+import FormInput from '../../components/UI/FormInput.vue';
+import FormSelect from '../../components/UI/FormSelect.vue';
+import Button from '../../components/UI/Button.vue';
 import api from '../../api';
+
 
 const props = defineProps({ id: String, user: Object });
 const emit = defineEmits(['close']);
@@ -59,7 +43,7 @@ const formData = ref({
 const isLoading = ref(false);
 
 const closeForm = () => {
-    formData = {
+    formData.value = {
         firstname: '',
         lastname: '',
         type: 'Writer',
@@ -69,6 +53,28 @@ const closeForm = () => {
     }
     emit('close');
 };
+
+const typeOptions = ref([
+    {
+        id: 'Writer',
+        text: 'Writer',
+    },
+    {
+        id: 'Editor',
+        text: 'Editor',
+    },
+])
+
+const statusOptions = ref([
+    {
+        id: 'Active',
+        text: 'Active',
+    },
+    {
+        id: 'Inactive',
+        text: 'Inactive',
+    },
+])
 
 
 const handleSubmit = async () => {
@@ -104,7 +110,7 @@ watch(
     () => props.user,
     (newUser) => {
         if (newUser) {
-            if (typeof newUser === 'object') {
+            if (typeof newUser === 'object' && props.id) {
                 formData.value = { ...newUser };
             }
         }

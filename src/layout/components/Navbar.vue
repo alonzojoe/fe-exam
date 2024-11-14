@@ -28,7 +28,7 @@ const logout = () => {
     emit('log-out')
 }
 
-const fullName = computed(() => props.authUser.firstname + props.authUser.lastname)
+const fullName = computed(() => `${props.authUser.firstname}  ${props.authUser.lastname}`)
 
 const pages = ref([
     {

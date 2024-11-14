@@ -1,12 +1,18 @@
 <template>
-    <div>
-        <h2 class="heading mb-2">
-            Editor's Dashboard
-        </h2>
-        <button @click="showForm">Add New Article +</button>
+    <section>
+
+
+        <div class="header-container">
+            <h2 class="heading">
+                Writer's Dashboard
+            </h2>
+            <Button @click="showForm">Add New Article +</Button>
+        </div>
+
+
         <ArticleForm :id="selectedArticleID" :article="selectedArticle" v-if="isShow" @close="closeForm" />
 
-        <h5 class="sub-heading">
+        <h5 class="sub-heading mt-2">
             List of Articles for Editing
         </h5>
         <div class="table-responsive">
@@ -38,7 +44,7 @@
                         <td>{{ new Date(article.date).toLocaleDateString() }}</td>
                         <td>{{ article.writer }}</td>
                         <td>{{ article.editor }}</td>
-                        <td><button @click="showForm(article)">Edit</button></td>
+                        <td><Button @click="showForm(article)">Edit</Button></td>
                     </tr>
                 </tbody>
             </table>
@@ -77,15 +83,15 @@
                         <td>{{ new Date(article.date).toLocaleDateString() }}</td>
                         <td>{{ article.writer }}</td>
                         <td>{{ article.editor }}</td>
-                        <td><button @click="showForm(article)">Edit</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div>
+    </section>
 </template>
 
 <script setup>
+import Button from '../../components/UI/Button.vue';
 import ArticleForm from './components/ArticleForm.vue';
 import { ref, onMounted } from 'vue';
 import api from '../../api';
@@ -145,7 +151,7 @@ const selectedArticleID = ref(null);
 const selectedArticle = ref({});
 
 const showForm = (article) => {
-    selectedArticleID.value = article.id;
+    selectedArticleID.value = article?.id;
     selectedArticle.value = article;
     isShow.value = true;
 };
@@ -161,14 +167,4 @@ onMounted(async () => {
 
 </script>
 
-<style scoped>
-.mb-2 {
-    margin-bottom: 2rem;
-}
-
-.separator {
-    width: 100%;
-    border: 0.5px solid #ccc;
-    margin: 2rem 0;
-}
-</style>
+<style scoped></style>

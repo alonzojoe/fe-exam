@@ -188,12 +188,5 @@ watch(() => props.article, (newArticle) => {
 </script>
 
 <style scoped>
-.btn-container {
-    /* border: 1px solid red; */
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    gap: 1rem;
 
-}
 </style>

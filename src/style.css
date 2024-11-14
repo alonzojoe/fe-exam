@@ -73,3 +73,39 @@ table th {
   height: auto;
   display: block;
 }
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.separator {
+  width: 100%;
+  border: 0.5px solid #ccc;
+  margin: 2rem 0;
+}
+
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 450px) {
+  .header-container {
+    flex-direction: column;
+  }
+}
+
+.btn-container {
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 1rem;
+
+}

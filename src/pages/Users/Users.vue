@@ -1,12 +1,16 @@
 <template>
     <section>
-        <h2 class="heading">
-            Users Management
-        </h2>
-        <h5 class="sub-heading">
+
+        <div class="header-container">
+            <h2 class="heading">
+                User Management
+            </h2>
+            <Button @click="showForm">Add New User +</Button>
+        </div>
+
+        <h5 class="sub-heading mt-2">
             Manage the List of Users
         </h5>
-        <button @click="showForm">Add New User +</button>
         <UsersForm :id="selectedUserID" :user="selectedUser" v-if="isShow" @close="closeForm" />
         <div class="table-responsive">
             <table>
@@ -33,7 +37,7 @@
                         <td>{{ user.lastname }}</td>
                         <td>{{ user.type }}</td>
                         <td>{{ user.status }}</td>
-                        <td><button @click="showForm(user)">Edit</button></td>
+                        <td><Button @click="showForm(user)">Edit</Button></td>
                     </tr>
                 </tbody>
             </table>
@@ -45,6 +49,7 @@
 import { ref, onMounted, } from 'vue';
 import api from '../../api';
 import UsersForm from './UsersForm.vue';
+import Button from '../../components/UI/Button.vue';
 
 const isLoading = ref(false)
 const users = ref([])
@@ -76,7 +81,7 @@ const isShow = ref(false);
 const selectedUserID = ref(null);
 const selectedUser = ref({})
 const showForm = (user) => {
-    selectedUserID.value = user.id;
+    selectedUserID.value = user?.id;
     selectedUser.value = user
     isShow.value = true;
 };
@@ -94,4 +99,4 @@ onMounted(async () => {
 
 </script>
 
-<style lang="css" scoped></style>
+<style scoped></style>
