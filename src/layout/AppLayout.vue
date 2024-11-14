@@ -4,6 +4,10 @@
         <main class="container">
             <router-view />
         </main>
+        <footer>
+            <span>Created by: Joenell Alonzo © 2024 All rights reserved</span>
+            <span>Archintel Developer Exam</span>
+        </footer>
     </div>
 </template>
 
@@ -69,6 +73,30 @@ onMounted(() => {
 @media screen and (max-width: 1200px) {
     .container {
         padding: 100px 2%;
+    }
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    box-shadow: 0 -0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    padding: 0.8rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer span {
+    font-size: 1.2rem;
+    color: var(--text-lighter);
+}
+
+@media screen and (max-width: 600px) {
+    footer {
+        text-align: center;
+        flex-direction: column;
     }
 }
 </style>
