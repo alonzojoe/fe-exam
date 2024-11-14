@@ -34,7 +34,7 @@
                     </tr>
                     <tr v-for="(company, index) in companies" :key="company.id">
                         <td>{{ index + 1 }}</td>
-                        <td><img :src="company.logo" alt="Company Logo" width="50" height="50" /></td>
+                        <td><img :src="company.logo" alt="Company Logo" class="table-image" /></td>
                         <td>{{ company.name }}</td>
                         <td>{{ company.status }}</td>
                         <td><Button @click="showForm(company)">Edit</Button></td>
