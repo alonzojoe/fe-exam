@@ -43,24 +43,27 @@
                             <Badge :type="article.status">{{ article.status }}</Badge>
                         </td>
                         <td>
-                            <Button @click="showForm(article)" v-if="article.status === 'For Edit'">Edit</Button>
+                            <Button @click="showForm(article)"
+                                v-if="(article.status === 'For Edit' && authenticatedUser.type === 'Writer') || (authenticatedUser.type === 'Editor')">Edit</Button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
-
     </section>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import ArticleForm from '../Dashboard/components/ArticleForm.vue';
 import Badge from '../../components/UI/Badge.vue'
 import Button from '../../components/UI/Button.vue';
 import api from '../../api';
+import { useStore } from 'vuex';
 
+
+const store = useStore();
+const authenticatedUser = computed(() => store.getters.getAuthUser);
 
 const isLoading = ref(false);
 const allArticles = ref([]);
